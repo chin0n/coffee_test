@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="☕coffee test😌">
+        <meta property="og:description" content="여러 질문에 답하고 당신은 어떤 커피인지 알아보세요.">
+        <meta property="og:image" content="img/co_open.png">
+        <title>☕coffee test😌</title>
+        <link rel="stylesheet" href="coffee.css">
+    </head>
+    <body>
+        <div class="grid">
+           <h1><a href="index.html">☕coffee test😌</a></h1>
+           <div id="quiz">
+
+              <p id="num"></p>
+                <div class="iconbox" style="margin: 0 auto; border-radius: 10px; width: 90%; height:5px; background-color:rgba(255, 255, 255, 1.0); position: relative;">
+                <div style="border-radius: 10px; width: 0%; height:5px; background-color: rgb(195, 123, 53); position: absolute;" id="icon"></div>
+                </div>
+              <p id="question"></p>
+
+              <img src="co_q-01.png" id="tv" alt="">
+
+              <div class="buttons">
+                 <button class="btn"></button>
+                 <button class="btn"></button>
+              </div>
+
+              <footer>
+                <!-- <button onclick="">back</button> -->
+                 <p id="progress"></p>
+              </footer>
+           </div>
+        </div>
+    </body>
+    <script>
+    function goIcon(){
+      var icon = document.getElementById("icon");
+      icon.style.width = parseInt(icon.style.width) + 10 + "%";
+    }
+        var image = ["img/co_q-09.png", "img/co_q-01.png", "img/co_q-02.png", "img/co_q-03.png", "img/co_q-04.png", "img/co_q-05.png", "img/co_q-06.png", "img/co_q-07.png", "img/co_q-08.png", "img/co_q-09.png"];
+        var u = 0;
+        function change(){
+          u++;
+          if(u>=image.length){
+            u=0;
+          }
+          var tv = document.getElementById("tv")
+          tv.src = image[u];
+        }
+
+        // 문제 객체(생성자 함수)
+        function Question(text, choice, answer) {
+           this.text = text; // 질문 텍스트
+           this.choice = choice; // 선택할 답들(배열)
+           this.answer = answer; // 정답 정보
+        }
+
+        // 퀴즈 정보 객체
+        function Quiz(questions) {
+           this.typeA1 = 0; // 점수
+           this.typeA2 = 0; // 점수
+           this.typeB1 = 0; // 점수
+           this.typeB2 = 0; // 점수
+           this.typeC1 = 0; // 점수
+           this.typeC2 = 0; // 점수
+           this.questions = questions; // 문제
+           this.questionIndex = 0; // 문제 번호
+        }
+        var questions = [
+          // new Question('내가 더 선호하는 카페 인테리어는', ['힙하고 트렌디한 공간,<br>인스타 감성 인테리어', '편안한 의자와 넉넉한 공간,<br>차분한 느낌의 인테리어'], ['A1','A2']),
+          new Question('만나기로 한 친구가 새로운 친구를 데려와도 되느냐고 묻는다면,', ['"그럼! 데려와!"', '"오늘은 우리끼리 놀자"'], ['A1','A2']),
+          new Question('가려던 카페가 임시휴일이라면', ['"이 근처에 여기도 괜찮대"<br>이미 대안을 생각해 두었다', '"일단 걷다보면 뭐라도 나오겠지"'], ['C1','C2']),
+          new Question('사장님이 "요즘 자주 오시죠? 오늘도 늘 드시던 메뉴로 드릴까요?"라고 말을 걸어 온다면', ['단골 카페가 생긴 것 같아<br>기분이 좋다', '친절한 응대는 고맙지만,<br>조금 부담스럽다'], ['A1','A2']),
+          // new Question('지각을 한 친구. 이렇게 말하면<br>바로 용서해 줄 수 있다', ['"미안해! 기다리느라 힘들었지?<br>정말정말 미안해!😣"', '"미안해! 10분 일찍 나왔는데<br>버스가 우회하는 바람에 늦었어"'], ['B1','B2']),
+          new Question('친구가 강력 추천해 주문한 음료가 내 취향에 맞지 않는다.<br>"어때? 맛있지?😆"라는 친구에게 나는', ['"음, 처음 먹어보는 맛이다!<br>너는 이런 걸 좋아하는구나!"', '"아니!<br>앞으로는 절대 안 먹을 것 같아"'], ['B1','B2']),
+          new Question('"어제 야근한다고 피곤했는데<br>커피를 마시니까 좀 낫다"<br>라는 친구에게 나는', ['"야근~? 피곤하겠다😥<br>자 이것도 먹어!"', '"야근 왜 했는데?<br>지금은 괜찮아?"'], ['B1','B2']),
+          new Question('친구가 컵을 떨어뜨렸다.<br>내가 가장 먼저 할 법한 반응은', ['"괜찮아?"', '"휴지 휴지!"'], ['B1','B2']),
+          new Question('한 달 후에 다시 모이자는 친구들. 나의 반응은', ['캘린더를 확인하며<br>"다음 달 언제?"', '"아직 좀 남았으니까<br>그쯤 되면 카톡해!"'], ['C1','C2']),
+          new Question('친구들과 재밌게 놀고 헤어질 무렵,<br>"너무 재밌었어! 우리 그냥 내일도 또 볼래?"라는 친구에게 나는', ['"내일은 할 일이 있어.<br>다음에 보자!"', '"헐 그럴까?"'], ['C1','C2']),
+          new Question('친구들과 헤어져<br>집에 가는 길에 나는', ['에너지가 충전된 기분!<br>오늘 찍은 사진부터 공유한다', '가장 빠른 경로로 귀가하며<br>집에서 할 것들을 생각한다'], ['A1','A2']),
+
+
+        ];
+
+        // 퀴즈 객체 생성
+        var quiz = new Quiz(questions);
+
+        // 문제 출력 함수
+        function updateQuiz() {
+           var question = document.getElementById('question');
+           var idx = quiz.questionIndex + 1;
+           var choice = document.querySelectorAll('.btn');
+
+           //문제 번호 출력
+           num.innerHTML = 'Q' + idx + '. ';
+           // 문제 출력
+           question.innerHTML = quiz.questions[quiz.questionIndex].text;
+
+           // 선택지 출력 1 < 문제 갯수
+           for (var i = 0; i < 2; i++) {
+              choice[i].innerHTML = quiz.questions[quiz.questionIndex].choice[i];
+              choice[i].value = quiz.questions[quiz.questionIndex].answer[i];
+           }
+
+           progress();
+           change();
+           goIcon();
+        }
+
+        function progress() {
+           var progress = document.getElementById('progress');
+           quiz.questionIndex + 1;
+        }
+
+        var btn = document.querySelectorAll('.btn');
+
+        // 입력 및 정답 확인 함수
+        function checkAnswer(i) {
+           btn[i].addEventListener('click', function() {
+              var answer = btn[i].value;
+
+              if (answer == "A1") {
+                 quiz.typeA1++;
+              }if (answer == "A2") {
+                 quiz.typeA2++;
+              }if (answer == "B1") {
+                 quiz.typeB1++;
+              }if (answer == "B2") {
+                 quiz.typeB2++;
+              }if (answer == "C1") {
+                 quiz.typeC1++;
+              }if (answer == "C2") {
+                 quiz.typeC2++;
+              }
+
+              if (quiz.questionIndex < quiz.questions.length - 1) {
+                 quiz.questionIndex++;
+                 updateQuiz();
+              } else {
+                 result();
+              }
+           });
+        }
+
+    function result() {
+       var quizDiv = document.getElementById('quiz');
+       // var calcType = Math.max(quiz.typeA1, quiz.typeA2, quiz.typeB1, quiz.typeB2, quiz.typeC1, quiz.typeC2);
+       var type = "";
+
+       if(quiz.typeA1 > quiz.typeA2 && quiz.typeB1 > quiz.typeB2 && quiz.typeC1 > quiz.typeC2) {
+           location.href="coffee_1_macchiato.html";
+       }
+       if(quiz.typeA1 > quiz.typeA2 && quiz.typeB1 > quiz.typeB2 && quiz.typeC1 < quiz.typeC2) {
+           location.href="coffee_2_vanilla.html";
+       }
+       if(quiz.typeA1 > quiz.typeA2 && quiz.typeB1 < quiz.typeB2 && quiz.typeC1 > quiz.typeC2) {
+           location.href="coffee_3_americano.html";
+       }
+       if(quiz.typeA1 > quiz.typeA2 && quiz.typeB1 < quiz.typeB2 && quiz.typeC1 < quiz.typeC2) {
+           location.href="coffee_4_affogato.html";
+       }
+       if(quiz.typeA1 < quiz.typeA2 && quiz.typeB1 > quiz.typeB2 && quiz.typeC1 > quiz.typeC2) {
+           location.href="coffee_5_conpanna.html";
+       }
+       if(quiz.typeA1 < quiz.typeA2 && quiz.typeB1 > quiz.typeB2 && quiz.typeC1 < quiz.typeC2) {
+           location.href="coffee_6_cappuccino.html";
+       }
+       if(quiz.typeA1 < quiz.typeA2 && quiz.typeB1 < quiz.typeB2 && quiz.typeC1 > quiz.typeC2) {
+           location.href="coffee_7_espresso.html";
+       }
+       if(quiz.typeA1 < quiz.typeA2 && quiz.typeB1 < quiz.typeB2 && quiz.typeC1 < quiz.typeC2) {
+           location.href="coffee_8_coldbrew.html";
+       }
+       // var txt = '<h3>결과</h3>' + '<h2 id="score">당신은 ' + type + ' 사람이군요!</h2>';
+
+       quizDiv.innerHTML = txt;
+
+
+    }
+
+    for (var i = 0; i < btn.length; i++) {
+       checkAnswer(i);
+    }
+
+    updateQuiz();
+
+
+    </script>
+</html>

@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap');
+img{
+  height: 180px;
+  width: auto;
+}
+body{
+      height: 100%;
+      margin: 0 auto;
+}
+body, .grid{
+      background-color: rgb(250, 240, 235);
+}
+body, .btn{
+      font-family: 'Noto Serif KR', serif;
+      font-size: 16px;
+      font-weight: bolder;
+}
+
+h3{
+  color: black;
+  font-size: 16px;
+}
+footer{
+  margin-top: 60px;
+}
+.grid, .grid_a{
+   padding: 20px;
+   margin: 0 auto;
+   width: 300px;
+   border: none;
+}
+.grid{
+  height: flex;
+}
+.grid_a {
+  height: flex;
+}
+.grid h1, a{
+  text-decoration: none;
+  color: rgb(155, 83, 53);
+}
+.grid h1, .grid_a h1{
+   font-size: 18px;
+   text-align: center;
+   margin-bottom: 30px;
+}
+#num{
+  margin: 5px;
+  font-weight: bold;
+  color: rgb(195, 123, 53);
+}
+#quiz {
+   text-align: center;
+}
+
+#question {
+   padding: 10px;
+   text-align: center;
+   /* background: salmon;
+   border-radius: 15px; */
+   font-size: 18px;
+   font-weight: bold;
+   color: black;
+   margin: 12px;
+   padding: 0;
+}
+
+#progress {
+   font-size: 20px;
+   color: black;
+}
+
+.buttons {
+   padding: 0px 20px;
+   /* border: 2px solid #eed0dc;
+   border-radius: 20px; */
+}
+
+.btn {
+   /* margin: 10px 40px 20px 0; */
+   margin-top: 10px;
+   margin-bottom: 10px;
+   margin: 5px 0px;
+   padding: 10px;
+   width: 250px;
+   font-size: 16px;
+   color: rgb(182, 113, 43);
+   background: rgba(205, 133, 63, 0);
+   border: 1px solid Peru;
+   border-radius: 15px;
+   cursor: pointer;
+   transition: all .2s;
+}
+
+.btn:nth-child(2n) {
+   margin-right: 0;
+}
+
+.btn:hover {
+  background: rgba(180, 113, 43, 0.15);
+}
+
+#score{
+  color: Peru;
+  margin: 0 auto;
+}
+h4{
+  font-size: 14px;
+  text-align: justify;
+}
